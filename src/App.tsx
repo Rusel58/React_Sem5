@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import UsersPage from './pages/UsersPage';
 import UserDetailPage from './pages/UserDetailPage';
 
@@ -10,6 +10,11 @@ function NotFound() {
   return <p>Страница не найдена.</p>;
 }
 
+function UserDetailRoute() {
+  const { userId } = useParams();
+  return <UserDetailPage key={userId} />;
+}
+
 export default function App() {
   return (
     <Routes>
@@ -17,7 +22,7 @@ export default function App() {
 
       <Route path="/users" element={<UsersPage />}>
         <Route index element={<EmptyDetails />} />
-        <Route path=":userId" element={<UserDetailPage />} />
+        <Route path=":userId" element={<UserDetailRoute />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectUserById } from '../features/users/selectors';
@@ -11,13 +11,7 @@ export default function UserDetailPage() {
   const id = Number(userId);
   const user = useAppSelector((state) => selectUserById(state, id));
 
-  const [name, setName] = useState('');
-
-  useEffect(() => {
-    if (user) {
-      setName(user.name);
-    }
-  }, [user]);
+  const [name, setName] = useState(user?.name ?? '');
 
   if (!userId || Number.isNaN(id)) {
     return <p>Некорректный ID пользователя.</p>;
